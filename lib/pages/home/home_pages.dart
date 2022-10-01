@@ -16,6 +16,9 @@ class _HomePageState extends State<HomePage> {
   var sumScoreBlue = 0;
 
   void _handleClickButtonScore(int num) {
+    if(_c.length >= 3){
+      return;
+    }
     if (num == 1) {
       setState(() {
         ScoreRed = 10;
