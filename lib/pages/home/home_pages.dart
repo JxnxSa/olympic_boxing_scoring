@@ -8,84 +8,93 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var _c = '';
   var count = 0;
   var ScoreRed = 0;
   var ScoreBlue = 0;
   var sumScoreRed = 0;
   var sumScoreBlue = 0;
 
-  void _handleClickButtonScore(int num){
-    if(num == 1){
+  void _handleClickButtonScore(int num) {
+    if (num == 1) {
       setState(() {
         ScoreRed = 10;
         ScoreBlue = 9;
       });
-      sumScoreRed += ScoreRed;
-      sumScoreBlue += ScoreBlue;
     }
-    if(num == 2){
-
+    if (num == 2) {
       setState(() {
         ScoreRed = 9;
         ScoreBlue = 10;
       });
-      sumScoreRed += ScoreRed;
-      sumScoreBlue += ScoreBlue;
     }
+    count++;
+    _c = _c + '1';
+
+    sumScoreRed += ScoreRed;
+    sumScoreBlue += ScoreBlue;
   }
 
-  Widget _buildScoreTotal(){
+  Widget _buildScoreTotal(bool on) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
-        child: Column(
-          children: [
-            Text(
-              'TOTAL',
-              style: TextStyle(
-                fontSize: 10.0,
+        child: on
+            ? Column(
+                children: [
+                  Text(
+                    'TOTAL',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                    ),
+                  ),
+                  Text(
+                    '$sumScoreRed                                  $sumScoreBlue',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.0,
+                    color: Color.fromRGBO(157, 157, 158, 1.0),
+                  ),
+                ],
+              )
+            : SizedBox(
+                height: 60.0,
               ),
-            ),
-            Text(
-              '$sumScoreRed                                  $sumScoreBlue',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-            Divider(
-              thickness: 1.0,
-              color: Color.fromRGBO(157, 157, 158, 1.0),
-            ),
-          ],
-        ),
       ),
     );
   }
 
-  Widget _buildScoreRound(int count) {
+  Widget _buildScoreRound(bool on) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
-        child: Column(
-          children: [
-            Text(
-              'ROUND$count',
-              style: TextStyle(
-                fontSize: 10.0,
+        child: on
+            ? Column(
+                children: [
+                  Text(
+                    'ROUND$count',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                    ),
+                  ),
+                  Text(
+                    '$ScoreRed                                  $ScoreBlue',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.0,
+                    color: Color.fromRGBO(157, 157, 158, 1.0),
+                  ),
+                ],
+              )
+            : SizedBox(
+                height: 60.0,
               ),
-            ),
-            Text(
-              '$ScoreRed                                   $ScoreBlue',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-            Divider(
-              thickness: 1.0,
-              color: Color.fromRGBO(157, 157, 158, 1.0),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -262,10 +271,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Column(
                       children: [
-                        _buildScoreRound(1),
-                        _buildScoreRound(2),
-                        _buildScoreRound(3),
-                        _buildScoreTotal(),
+                        _buildScoreRound(_c.length >= 1 ? true : false),
+                        _buildScoreRound(_c.length >= 2 ? true : false),
+                        _buildScoreRound(_c.length >= 3 ? true : false),
+                        _buildScoreTotal(_c.length >= 3 ? true : false),
                       ],
                     )
                   ],
