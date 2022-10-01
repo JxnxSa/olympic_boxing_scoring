@@ -10,8 +10,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var _c = '';
   var count = 0;
-  var ScoreRed = 0;
-  var ScoreBlue = 0;
+  var ScoreRed1 = 0;
+  var ScoreBlue1 = 0;
+  var ScoreRed2 = 0;
+  var ScoreBlue2 = 0;
+  var ScoreRed3 = 0;
+  var ScoreBlue3 = 0;
   var sumScoreRed = 0;
   var sumScoreBlue = 0;
 
@@ -19,23 +23,56 @@ class _HomePageState extends State<HomePage> {
     if(_c.length >= 3){
       return;
     }
-    if (num == 1) {
-      setState(() {
-        ScoreRed = 10;
-        ScoreBlue = 9;
-      });
+    if(count == 0){
+      if (num == 1) {
+        setState(() {
+          ScoreRed1 = 10;
+          ScoreBlue1 = 9;
+        });
+      }
+      if (num == 2) {
+        setState(() {
+          ScoreRed1 = 9;
+          ScoreBlue1 = 10;
+        });
+      }
+      sumScoreRed += ScoreRed1;
+      sumScoreBlue += ScoreBlue1;
     }
-    if (num == 2) {
-      setState(() {
-        ScoreRed = 9;
-        ScoreBlue = 10;
-      });
+    if(count == 1){
+      if (num == 1) {
+        setState(() {
+          ScoreRed2 = 10;
+          ScoreBlue2 = 9;
+        });
+      }
+      if (num == 2) {
+        setState(() {
+          ScoreRed2 = 9;
+          ScoreBlue2 = 10;
+        });
+      }
+      sumScoreRed += ScoreRed2;
+      sumScoreBlue += ScoreBlue2;
+    }
+    if(count == 2){
+      if (num == 1) {
+        setState(() {
+          ScoreRed3 = 10;
+          ScoreBlue3 = 9;
+        });
+      }
+      if (num == 2) {
+        setState(() {
+          ScoreRed3 = 9;
+          ScoreBlue3 = 10;
+        });
+      }
+      sumScoreRed += ScoreRed3;
+      sumScoreBlue += ScoreBlue3;
     }
     count++;
     _c = _c + '1';
-
-    sumScoreRed += ScoreRed;
-    sumScoreBlue += ScoreBlue;
   }
 
   Widget _buildScoreTotal(bool on) {
@@ -70,7 +107,71 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildScoreRound(bool on) {
+  Widget _buildScoreRound1(bool on) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
+        child: on
+            ? Column(
+          children: [
+            Text(
+              'ROUND1',
+              style: TextStyle(
+                fontSize: 10.0,
+              ),
+            ),
+            Text(
+              '$ScoreRed1                                  $ScoreBlue1',
+              style: TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Color.fromRGBO(157, 157, 158, 1.0),
+            ),
+          ],
+        )
+            : SizedBox(
+          height: 60.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScoreRound2(bool on) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
+        child: on
+            ? Column(
+          children: [
+            Text(
+              'ROUND2',
+              style: TextStyle(
+                fontSize: 10.0,
+              ),
+            ),
+            Text(
+              '$ScoreRed2                                  $ScoreBlue2',
+              style: TextStyle(
+                fontSize: 30.0,
+              ),
+            ),
+            Divider(
+              thickness: 1.0,
+              color: Color.fromRGBO(157, 157, 158, 1.0),
+            ),
+          ],
+        )
+            : SizedBox(
+          height: 60.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildScoreRound3(bool on) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
@@ -78,13 +179,13 @@ class _HomePageState extends State<HomePage> {
             ? Column(
                 children: [
                   Text(
-                    'ROUND$count',
+                    'ROUND3',
                     style: TextStyle(
                       fontSize: 10.0,
                     ),
                   ),
                   Text(
-                    '$ScoreRed                                  $ScoreBlue',
+                    '$ScoreRed3                                  $ScoreBlue3',
                     style: TextStyle(
                       fontSize: 30.0,
                     ),
@@ -274,9 +375,9 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Column(
                       children: [
-                        _buildScoreRound(_c.length >= 1 ? true : false),
-                        _buildScoreRound(_c.length >= 2 ? true : false),
-                        _buildScoreRound(_c.length >= 3 ? true : false),
+                        _buildScoreRound1(_c.length >= 1 ? true : false),
+                        _buildScoreRound2(_c.length >= 2 ? true : false),
+                        _buildScoreRound3(_c.length >= 3 ? true : false),
                         _buildScoreTotal(_c.length >= 3 ? true : false),
                       ],
                     )
