@@ -18,12 +18,26 @@ class _HomePageState extends State<HomePage> {
   var ScoreBlue3 = 0;
   var sumScoreRed = 0;
   var sumScoreBlue = 0;
+  void _handleClickButtonClear(){
+    setState(() {
+      ScoreRed1 = 0;
+      ScoreBlue1 = 0;
+      ScoreRed2 = 0;
+      ScoreBlue2 = 0;
+      ScoreRed3 = 0;
+      ScoreBlue3 = 0;
+      sumScoreBlue = 0;
+      sumScoreRed = 0;
+      _c = '';
+      count = 0;
+    });
+  }
 
   void _handleClickButtonScore(int num) {
-    if(_c.length >= 3){
+    if (_c.length >= 3) {
       return;
     }
-    if(count == 0){
+    if (count == 0) {
       if (num == 1) {
         setState(() {
           ScoreRed1 = 10;
@@ -36,10 +50,10 @@ class _HomePageState extends State<HomePage> {
           ScoreBlue1 = 10;
         });
       }
-      sumScoreRed += ScoreRed1;
-      sumScoreBlue += ScoreBlue1;
+      // sumScoreRed += ScoreRed1;
+      // sumScoreBlue += ScoreBlue1;
     }
-    if(count == 1){
+    if (count == 1) {
       if (num == 1) {
         setState(() {
           ScoreRed2 = 10;
@@ -52,10 +66,10 @@ class _HomePageState extends State<HomePage> {
           ScoreBlue2 = 10;
         });
       }
-      sumScoreRed += ScoreRed2;
-      sumScoreBlue += ScoreBlue2;
+      // sumScoreRed += ScoreRed2;
+      // sumScoreBlue += ScoreBlue2;
     }
-    if(count == 2){
+    if (count == 2) {
       if (num == 1) {
         setState(() {
           ScoreRed3 = 10;
@@ -68,11 +82,11 @@ class _HomePageState extends State<HomePage> {
           ScoreBlue3 = 10;
         });
       }
-      sumScoreRed += ScoreRed3;
-      sumScoreBlue += ScoreBlue3;
     }
     count++;
     _c = _c + '1';
+    sumScoreRed = ScoreRed1 + ScoreRed2 + ScoreRed3;
+    sumScoreBlue = ScoreBlue1 + ScoreBlue2 + ScoreBlue3;
   }
 
   Widget _buildScoreTotal(bool on) {
@@ -113,28 +127,28 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
         child: on
             ? Column(
-          children: [
-            Text(
-              'ROUND1',
-              style: TextStyle(
-                fontSize: 10.0,
-              ),
-            ),
-            Text(
-              '$ScoreRed1                                  $ScoreBlue1',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-            Divider(
-              thickness: 1.0,
-              color: Color.fromRGBO(157, 157, 158, 1.0),
-            ),
-          ],
-        )
+                children: [
+                  Text(
+                    'ROUND1',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                    ),
+                  ),
+                  Text(
+                    '$ScoreRed1                                  $ScoreBlue1',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.0,
+                    color: Color.fromRGBO(157, 157, 158, 1.0),
+                  ),
+                ],
+              )
             : SizedBox(
-          height: 60.0,
-        ),
+                height: 60.0,
+              ),
       ),
     );
   }
@@ -145,28 +159,28 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.fromLTRB(0, 7.5, 0, 7.5),
         child: on
             ? Column(
-          children: [
-            Text(
-              'ROUND2',
-              style: TextStyle(
-                fontSize: 10.0,
-              ),
-            ),
-            Text(
-              '$ScoreRed2                                  $ScoreBlue2',
-              style: TextStyle(
-                fontSize: 30.0,
-              ),
-            ),
-            Divider(
-              thickness: 1.0,
-              color: Color.fromRGBO(157, 157, 158, 1.0),
-            ),
-          ],
-        )
+                children: [
+                  Text(
+                    'ROUND2',
+                    style: TextStyle(
+                      fontSize: 10.0,
+                    ),
+                  ),
+                  Text(
+                    '$ScoreRed2                                  $ScoreBlue2',
+                    style: TextStyle(
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.0,
+                    color: Color.fromRGBO(157, 157, 158, 1.0),
+                  ),
+                ],
+              )
             : SizedBox(
-          height: 60.0,
-        ),
+                height: 60.0,
+              ),
       ),
     );
   }
@@ -292,10 +306,12 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                      size: 40.0,
+                    Container(
+                      child: sumScoreRed > sumScoreBlue ?Icon(
+                        Icons.check,
+                        color: Colors.green,
+                        size: 40.0,
+                      ): null,
                     ),
                   ],
                 ),
@@ -341,10 +357,12 @@ class _HomePageState extends State<HomePage> {
                         )
                       ],
                     ),
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                      size: 40.0,
+                    Container(
+                      child: sumScoreRed < sumScoreBlue ? Icon(
+                        Icons.check,
+                        color: Colors.green,
+                        size: 40.0,
+                      ): null,
                     ),
                   ],
                 ),
@@ -386,43 +404,67 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 40.0,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _handleClickButtonScore(1);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFFA00000),
-                          ),
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _handleClickButtonScore(2);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0000A0),
-                          ),
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                Container(
+                    child: _c.length < 3
+                        ? Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      _handleClickButtonScore(1);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFFA00000),
+                                    ),
+                                    child: Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      _handleClickButtonScore(2);
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color(0xFF0000A0),
+                                    ),
+                                    child: Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      _handleClickButtonClear();
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.black,
+                                    ),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
                 )
               ],
             ),
