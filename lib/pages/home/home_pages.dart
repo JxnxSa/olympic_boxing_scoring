@@ -226,6 +226,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               height: 10.0,
@@ -239,9 +240,7 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-            SizedBox(
-              height: 10.0,
-            ),
+
             Row(
               //mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -402,9 +401,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 40.0,
-                ),
+
                 Container(
                     child: _c.length < 3
                         ? Row(
