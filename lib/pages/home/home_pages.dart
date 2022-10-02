@@ -96,6 +96,7 @@ class _HomePageState extends State<HomePage> {
         child: on
             ? Column(
                 children: [
+
                   Text(
                     'TOTAL',
                     style: TextStyle(
@@ -307,7 +308,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Container(
-                      child: sumScoreRed > sumScoreBlue ?Icon(
+                      child: sumScoreRed > sumScoreBlue && _c.length >= 3?Icon(
                         Icons.check,
                         color: Colors.green,
                         size: 40.0,
@@ -358,7 +359,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     Container(
-                      child: sumScoreRed < sumScoreBlue ? Icon(
+                      child: sumScoreRed < sumScoreBlue && _c.length >= 3? Icon(
                         Icons.check,
                         color: Colors.green,
                         size: 40.0,
